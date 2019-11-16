@@ -1,6 +1,9 @@
 package union_find
 
-import "testing"
+import (
+	"math/rand"
+	"testing"
+)
 
 func TestQuickFindUF_Connected(t *testing.T) {
 	type fields struct {
@@ -19,7 +22,7 @@ func TestQuickFindUF_Connected(t *testing.T) {
 		name   string
 		n      int
 		unions []args
-		runs []testRun
+		runs   []testRun
 	}{
 		{
 			name:   "2",
@@ -86,7 +89,7 @@ func TestQuickFindUF_Connected(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			uf := New(tt.n)
+			uf := NewQuickFind(tt.n)
 			for _, union := range tt.unions {
 				uf.Union(union.p, union.q)
 			}
@@ -100,5 +103,16 @@ func TestQuickFindUF_Connected(t *testing.T) {
 			}
 
 		})
+	}
+}
+
+func BenchmarkQuickFindUF_Union(b *testing.B) {
+	// create uf with b.N comonents
+	uf := NewQuickFind(b.N)
+	// run union b.N times on random components
+	for i := 0; i < b.N; i++ {
+		p := rand.Intn(b.N)
+		q := rand.Intn(b.N)
+		uf.Union(p, q)
 	}
 }
