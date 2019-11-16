@@ -5,25 +5,25 @@ import (
 	"testing"
 )
 
-func TestQuickFindUF_Connected(t *testing.T) {
-	type fields struct {
-		id []int
-	}
-	type args struct {
-		p int
-		q int
-	}
-	type testRun struct {
-		connectedTarget args
-		want            bool
-	}
+// shared test data
+type args struct {
+	p int
+	q int
+}
+type testRun struct {
+	connectedTarget args
+	want            bool
+}
 
-	tests := []struct {
-		name   string
-		n      int
-		unions []args
-		runs   []testRun
-	}{
+type testCases struct {
+	name   string
+	n      int
+	unions []args
+	runs   []testRun
+}
+
+var (
+	tests = []testCases{
 		{
 			name:   "2",
 			n:      2,
@@ -87,6 +87,10 @@ func TestQuickFindUF_Connected(t *testing.T) {
 			},
 		},
 	}
+)
+
+func TestQuickFindUF_Connected(t *testing.T) {
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			uf := NewQuickFind(tt.n)
