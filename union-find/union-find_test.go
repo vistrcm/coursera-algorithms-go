@@ -120,3 +120,35 @@ func BenchmarkQuickFindUF_Union(b *testing.B) {
 		uf.Union(p, q)
 	}
 }
+
+func TestQuickUnionUF_Connected(t *testing.T) {
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			uf := NewQuickUnionUF(tt.n)
+			for _, union := range tt.unions {
+				uf.Union(union.p, union.q)
+			}
+
+			for _, run := range tt.runs {
+				p := run.connectedTarget.p
+				q := run.connectedTarget.q
+				if got := uf.Connected(p, q); got != run.want {
+					t.Errorf("Connected(%d, %d) = %v, want %v", p, q, got, run.want)
+				}
+			}
+
+		})
+	}
+}
+
+func BenchmarkQuickUnionUF_Union(b *testing.B) {
+	// create uf with b.N comonents
+	uf := NewQuickUnionUF(b.N)
+	// run union b.N times on random components
+	for i := 0; i < b.N; i++ {
+		p := rand.Intn(b.N)
+		q := rand.Intn(b.N)
+		uf.Union(p, q)
+	}
+}
