@@ -37,13 +37,13 @@ type QuickUnionUF struct {
 }
 
 //NewQuickUnionUF initializes a new QuickFindUF instance
-func NewQuickUnionUF(N int) QuickFindUF {
+func NewQuickUnionUF(N int) QuickUnionUF {
 	id := make([]int, N)
 	for pos, _ := range id {
 		id[pos] = pos
 	}
 
-	return QuickFindUF{id: id}
+	return QuickUnionUF{id: id}
 }
 
 //root finds the root of element
