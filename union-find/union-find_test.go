@@ -110,16 +110,25 @@ func TestQuickFindUF_Connected(t *testing.T) {
 	}
 }
 
-func BenchmarkQuickFindUF_Union(b *testing.B) {
+func benchmarkQuickFindUF_Union(size int, b *testing.B) {
 	// create uf with b.N comonents
-	uf := NewQuickFind(b.N)
+	uf := NewQuickFind(size)
 	// run union b.N times on random components
 	for i := 0; i < b.N; i++ {
-		p := rand.Intn(b.N)
-		q := rand.Intn(b.N)
+		p := rand.Intn(size)
+		q := rand.Intn(size)
 		uf.Union(p, q)
 	}
 }
+
+// benchmark QuickFindUF_Union with different inputs
+
+func BenchmarkQuickFindUF_Union1(b *testing.B)      { benchmarkQuickFindUF_Union(1, b) }
+func BenchmarkQuickFindUF_Union10(b *testing.B)     { benchmarkQuickFindUF_Union(10, b) }
+func BenchmarkQuickFindUF_Union100(b *testing.B)    { benchmarkQuickFindUF_Union(100, b) }
+func BenchmarkQuickFindUF_Union1000(b *testing.B)   { benchmarkQuickFindUF_Union(1000, b) }
+func BenchmarkQuickFindUF_Union10000(b *testing.B)  { benchmarkQuickFindUF_Union(10000, b) }
+func BenchmarkQuickFindUF_Union100000(b *testing.B) { benchmarkQuickFindUF_Union(100000, b) }
 
 func TestQuickUnionUF_Connected(t *testing.T) {
 
@@ -142,13 +151,22 @@ func TestQuickUnionUF_Connected(t *testing.T) {
 	}
 }
 
-func BenchmarkQuickUnionUF_Union(b *testing.B) {
+func benchmarkQuickUnionUF_Union(size int, b *testing.B) {
 	// create uf with b.N comonents
-	uf := NewQuickUnionUF(b.N)
+	uf := NewQuickUnionUF(size)
 	// run union b.N times on random components
 	for i := 0; i < b.N; i++ {
-		p := rand.Intn(b.N)
-		q := rand.Intn(b.N)
+		p := rand.Intn(size)
+		q := rand.Intn(size)
 		uf.Union(p, q)
 	}
 }
+
+// benchmark QuickFindUF_Union with different inputs
+
+func BenchmarkQuickUnionUF_Union1(b *testing.B)      { benchmarkQuickUnionUF_Union(1, b) }
+func BenchmarkQuickUnionUF_Union10(b *testing.B)     { benchmarkQuickUnionUF_Union(10, b) }
+func BenchmarkQuickUnionUF_Union100(b *testing.B)    { benchmarkQuickUnionUF_Union(100, b) }
+func BenchmarkQuickUnionUF_Union1000(b *testing.B)   { benchmarkQuickUnionUF_Union(1000, b) }
+func BenchmarkQuickUnionUF_Union10000(b *testing.B)  { benchmarkQuickUnionUF_Union(10000, b) }
+func BenchmarkQuickUnionUF_Union100000(b *testing.B) { benchmarkQuickUnionUF_Union(100000, b) }
