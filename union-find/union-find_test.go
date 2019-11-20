@@ -123,12 +123,13 @@ func benchmarkQuickFindUF_Union(size int, b *testing.B) {
 
 // benchmark QuickFindUF_Union with different inputs
 
-func BenchmarkQuickFindUF_Union1(b *testing.B)      { benchmarkQuickFindUF_Union(1, b) }
-func BenchmarkQuickFindUF_Union10(b *testing.B)     { benchmarkQuickFindUF_Union(10, b) }
-func BenchmarkQuickFindUF_Union100(b *testing.B)    { benchmarkQuickFindUF_Union(100, b) }
-func BenchmarkQuickFindUF_Union1000(b *testing.B)   { benchmarkQuickFindUF_Union(1000, b) }
-func BenchmarkQuickFindUF_Union10000(b *testing.B)  { benchmarkQuickFindUF_Union(10000, b) }
-func BenchmarkQuickFindUF_Union100000(b *testing.B) { benchmarkQuickFindUF_Union(100000, b) }
+func BenchmarkQuickFindUF_Union1(b *testing.B)     { benchmarkQuickFindUF_Union(1, b) }
+func BenchmarkQuickFindUF_Union10(b *testing.B)    { benchmarkQuickFindUF_Union(10, b) }
+func BenchmarkQuickFindUF_Union100(b *testing.B)   { benchmarkQuickFindUF_Union(100, b) }
+func BenchmarkQuickFindUF_Union1000(b *testing.B)  { benchmarkQuickFindUF_Union(1000, b) }
+func BenchmarkQuickFindUF_Union10000(b *testing.B) { benchmarkQuickFindUF_Union(10000, b) }
+
+//func BenchmarkQuickFindUF_Union100000(b *testing.B) { benchmarkQuickFindUF_Union(100000, b) }
 
 func TestQuickUnionUF_Connected(t *testing.T) {
 
@@ -164,9 +165,10 @@ func benchmarkQuickUnionUF_Union(size int, b *testing.B) {
 
 // benchmark QuickFindUF_Union with different inputs
 
-func BenchmarkQuickUnionUF_Union1(b *testing.B)      { benchmarkQuickUnionUF_Union(1, b) }
-func BenchmarkQuickUnionUF_Union10(b *testing.B)     { benchmarkQuickUnionUF_Union(10, b) }
-func BenchmarkQuickUnionUF_Union100(b *testing.B)    { benchmarkQuickUnionUF_Union(100, b) }
-func BenchmarkQuickUnionUF_Union1000(b *testing.B)   { benchmarkQuickUnionUF_Union(1000, b) }
-func BenchmarkQuickUnionUF_Union10000(b *testing.B)  { benchmarkQuickUnionUF_Union(10000, b) }
-func BenchmarkQuickUnionUF_Union100000(b *testing.B) { benchmarkQuickUnionUF_Union(100000, b) }
+func BenchmarkQuickUnionUF_Union1(b *testing.B)     { benchmarkQuickUnionUF_Union(1, b) }
+func BenchmarkQuickUnionUF_Union10(b *testing.B)    { benchmarkQuickUnionUF_Union(10, b) }
+func BenchmarkQuickUnionUF_Union100(b *testing.B)   { benchmarkQuickUnionUF_Union(100, b) }
+func BenchmarkQuickUnionUF_Union1000(b *testing.B)  { benchmarkQuickUnionUF_Union(1000, b) }
+func BenchmarkQuickUnionUF_Union10000(b *testing.B) { benchmarkQuickUnionUF_Union(10000, b) }
+
+//func BenchmarkQuickUnionUF_Union100000(b *testing.B) { benchmarkQuickUnionUF_Union(100000, b) }
