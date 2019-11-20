@@ -8,7 +8,7 @@ type QuickFindUF struct {
 //NewQuickFind initializes a new QuickFindUF instance
 func NewQuickFind(N int) QuickFindUF {
 	id := make([]int, N)
-	for pos, _ := range id {
+	for pos := range id {
 		id[pos] = pos
 	}
 
