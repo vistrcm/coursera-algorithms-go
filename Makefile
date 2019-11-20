@@ -7,3 +7,7 @@ fmt:
 .PHONY: test
 test:
 	go test ./... -bench=.
+
+.PHONY: test_only
+test_only:
+	go test ./...
