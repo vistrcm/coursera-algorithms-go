@@ -39,11 +39,8 @@ func benchmarkQuickUnionWPCUF_Union(size int, b *testing.B) {
 
 // benchmark QuickFindUF_Union with different inputs
 
-func BenchmarkQuickUnionWPCUF_Union1(b *testing.B)        { benchmarkQuickUnionWPCUF_Union(1, b) }
-func BenchmarkQuickUnionWPCUF_Union10(b *testing.B)       { benchmarkQuickUnionWPCUF_Union(10, b) }
-func BenchmarkQuickUnionWPCUF_Union100(b *testing.B)      { benchmarkQuickUnionWPCUF_Union(100, b) }
-func BenchmarkQuickUnionWPCUF_Union1000(b *testing.B)     { benchmarkQuickUnionWPCUF_Union(1000, b) }
-func BenchmarkQuickUnionWPCUF_Union10000(b *testing.B)    { benchmarkQuickUnionWPCUF_Union(10000, b) }
-func BenchmarkQuickUnionWPCUF_Union100000(b *testing.B)   { benchmarkQuickUnionWPCUF_Union(100000, b) }
-func BenchmarkQuickUnionWPCUF_Union1000000(b *testing.B)  { benchmarkQuickUnionWPCUF_Union(1000000, b) }
-func BenchmarkQuickUnionWPCUF_Union10000000(b *testing.B) { benchmarkQuickUnionWPCUF_Union(10000000, b) }
+func BenchmarkQuickUnionWPCUF_Union1(b *testing.B)     { benchmarkQuickUnionWPCUF_Union(1, b) }
+func BenchmarkQuickUnionWPCUF_Union10(b *testing.B)    { benchmarkQuickUnionWPCUF_Union(10, b) }
+func BenchmarkQuickUnionWPCUF_Union100(b *testing.B)   { benchmarkQuickUnionWPCUF_Union(100, b) }
+func BenchmarkQuickUnionWPCUF_Union1000(b *testing.B)  { benchmarkQuickUnionWPCUF_Union(1000, b) }
+func BenchmarkQuickUnionWPCUF_Union10000(b *testing.B) { benchmarkQuickUnionWPCUF_Union(10000, b) }
