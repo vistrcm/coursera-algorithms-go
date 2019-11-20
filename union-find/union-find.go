@@ -36,7 +36,7 @@ type QuickUnionUF struct {
 	id []int
 }
 
-//NewQuickUnionUF initializes a new QuickFindUF instance
+//NewQuickUnionUF initializes a new QuickUnionUF instance
 func NewQuickUnionUF(N int) QuickUnionUF {
 	id := make([]int, N)
 	for pos, _ := range id {

@@ -27,7 +27,7 @@ func TestQuickUnionWPCUF_Connected(t *testing.T) {
 }
 
 func benchmarkQuickUnionWPCUF_Union(size int, b *testing.B) {
-	// create uf with b.N comonents
+	// create uf with b.N components
 	uf := NewQuickUnionWPCUF(size)
 	// run union b.N times on random components
 	for i := 0; i < b.N; i++ {

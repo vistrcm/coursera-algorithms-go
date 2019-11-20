@@ -44,5 +44,3 @@ func BenchmarkQuickUnionWUF_Union10(b *testing.B)    { benchmarkQuickUnionWUF_Un
 func BenchmarkQuickUnionWUF_Union100(b *testing.B)   { benchmarkQuickUnionWUF_Union(100, b) }
 func BenchmarkQuickUnionWUF_Union1000(b *testing.B)  { benchmarkQuickUnionWUF_Union(1000, b) }
 func BenchmarkQuickUnionWUF_Union10000(b *testing.B) { benchmarkQuickUnionWUF_Union(10000, b) }
-
-//func BenchmarkQuickUnionWUF_Union100000(b *testing.B) { benchmarkQuickUnionWUF_Union(100000, b) }
