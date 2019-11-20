@@ -1,6 +1,6 @@
 package union_find
 
-//QuickUnionUF implements Quick Union algorithm
+//QuickUnionUF implements Weighted Quick Union algorithm
 type QuickUnionWUF struct {
 	id []int
 	sz []int
