@@ -57,3 +57,34 @@ func TestNewStackOfStringsLL(t *testing.T) {
 		})
 	}
 }
+
+func TestOfStringsLL_IsEmpty(t *testing.T) {
+	tests := []struct {
+		name  string
+		input []string
+		want  bool
+	}{
+		{
+			name:  "empty",
+			input: nil,
+			want:  true,
+		},
+		{
+			name:  "nonempty",
+			input: []string{"nonempty"},
+			want:  false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			stack := NewStackOfStringsLL()
+			for _, i := range tt.input {
+				stack.Push(i)
+			}
+
+			if got := stack.IsEmpty(); got != tt.want {
+				t.Errorf("NewStackOfStringsLL for input %v = IsEmpty() = %v, want %v", tt.input, got, tt.want)
+			}
+		})
+	}
+}
