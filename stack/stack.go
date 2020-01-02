@@ -42,3 +42,35 @@ func (s *OfStringsLL) Pop() string {
 func (s *OfStringsLL) IsEmpty() bool {
 	return s.first == nil
 }
+
+// Array implementation
+
+type FixedCapacityStackOfStrings struct {
+	s []string
+	n int
+}
+
+//Push add item to the stack
+func (s *FixedCapacityStackOfStrings) Push(item string) {
+	s.s[s.n] = item
+	s.n++
+}
+
+//Pop item from the stack
+func (s *FixedCapacityStackOfStrings) Pop() string {
+	s.n--
+	return s.s[s.n]
+}
+
+//IsEmpty check if stack is empty
+func (s *FixedCapacityStackOfStrings) IsEmpty() bool {
+	return s.n == 0
+}
+
+//NewStackOfStringsLL returns new structure FixedCapacityStackOfStrings
+func NewFixedCapacityStackOfStrings(n int) *FixedCapacityStackOfStrings {
+	return &FixedCapacityStackOfStrings{
+		n: 0,
+		s: make([]string, n),
+	}
+}
