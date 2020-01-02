@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestNewStackOfStringsLL(t *testing.T) {
-	tests := []struct {
+var (
+	flowTests = []struct {
 		name  string
 		input []string
 		want  []string
@@ -37,7 +37,11 @@ func TestNewStackOfStringsLL(t *testing.T) {
 			want:  []string{"5", "4", "3", "2", "1"},
 		},
 	}
-	for _, tt := range tests {
+)
+
+func TestNewStackOfStringsLL(t *testing.T) {
+
+	for _, tt := range flowTests {
 		t.Run(tt.name, func(t *testing.T) {
 			var got []string
 			stack := NewStackOfStringsLL()
