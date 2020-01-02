@@ -1,5 +1,6 @@
 package stack
 
+//OfStrings interface representing stack of strings
 type OfStrings interface {
 	Push(item string)
 	Pop() string
@@ -11,14 +12,17 @@ type node struct {
 	Next *node
 }
 
+//OfStringsLL linked list implementation of OfStrings
 type OfStringsLL struct {
 	first *node
 }
 
+//NewStackOfStringsLL returns new structure OfStringsLL
 func NewStackOfStringsLL() *OfStringsLL {
 	return &OfStringsLL{}
 }
 
+//Push add item to the stack
 func (s *OfStringsLL) Push(item string) {
 	oldFirst := s.first
 	s.first = &node{
@@ -27,12 +31,14 @@ func (s *OfStringsLL) Push(item string) {
 	}
 }
 
+//Pop item from the stack
 func (s *OfStringsLL) Pop() string {
 	item := s.first.Item
 	s.first = s.first.Next
 	return item
 }
 
+//IsEmpty check if stack is empty
 func (s *OfStringsLL) IsEmpty() bool {
 	return s.first == nil
 }
