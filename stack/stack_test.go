@@ -114,3 +114,25 @@ func TestNewFixedCapacityStackOfStrings(t *testing.T) {
 		})
 	}
 }
+
+func TestNewResizingArrayStackOfStrings(t *testing.T) {
+	for _, tt := range flowTests {
+		t.Run(tt.name, func(t *testing.T) {
+			var got []string
+			stack := NewResizingArrayStackOfStrings()
+
+			for _, w := range tt.input {
+
+				if w == "-" {
+					got = append(got, stack.Pop())
+				} else {
+					stack.Push(w)
+				}
+			}
+
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewStackOfStringsLL() on %v. Got: %v, want %v", tt.input, got, tt.want)
+			}
+		})
+	}
+}
