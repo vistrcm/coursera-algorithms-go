@@ -74,3 +74,46 @@ func NewFixedCapacityStackOfStrings(n int) *FixedCapacityStackOfStrings {
 		s: make([]string, n),
 	}
 }
+
+//ResizingArrayStackOfStrings implements stack with underlying automatically resizing array
+type ResizingArrayStackOfStrings struct {
+	s []string
+	n int
+}
+
+//Push add item to the stack
+func (s *ResizingArrayStackOfStrings) Push(item string) {
+	if s.n == len(s.s) {
+		s.resize(2 * len(s.s))
+	}
+
+	s.s[s.n] = item
+	s.n++
+}
+
+//Pop item from the stack
+func (s *ResizingArrayStackOfStrings) Pop() string {
+	s.n--
+	return s.s[s.n]
+}
+
+//IsEmpty check if stack is empty
+func (s ResizingArrayStackOfStrings) IsEmpty() bool {
+	return s.n == 0
+}
+
+func (s *ResizingArrayStackOfStrings) resize(capacity int) {
+	copy := make([]string, capacity)
+	for i, v := range s.s {
+		copy[i] = v
+	}
+	s.s = copy
+}
+
+//NewResizingArrayStackOfStrings creates a new ResizingArrayStackOfStrings
+func NewResizingArrayStackOfStrings() *ResizingArrayStackOfStrings {
+	return &ResizingArrayStackOfStrings{
+		n: 0,
+		s: make([]string, 1),
+	}
+}
