@@ -62,7 +62,7 @@ func TestNewStackOfStringsLL(t *testing.T) {
 	}
 }
 
-func TestOfStringsLL_IsEmpty(t *testing.T) {
+func testStack_IsEmpty(stack OfStrings, t *testing.T) {
 	tests := []struct {
 		name  string
 		input []string
@@ -81,7 +81,6 @@ func TestOfStringsLL_IsEmpty(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			stack := NewStackOfStringsLL()
 			for _, i := range tt.input {
 				stack.Push(i)
 			}
@@ -91,6 +90,21 @@ func TestOfStringsLL_IsEmpty(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestOfStringsLL_IsEmpty(t *testing.T) {
+	stack := NewStackOfStringsLL()
+	testStack_IsEmpty(stack, t)
+}
+
+func TestFixedCapacityStackOfStrings_IsEmpty(t *testing.T) {
+	stack := NewFixedCapacityStackOfStrings(10)
+	testStack_IsEmpty(stack, t)
+}
+
+func TestResizingArrayStackOfStrings_IsEmpty(t *testing.T) {
+	stack := NewResizingArrayStackOfStrings()
+	testStack_IsEmpty(stack, t)
 }
 
 func TestNewFixedCapacityStackOfStrings(t *testing.T) {
