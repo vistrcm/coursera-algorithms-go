@@ -150,3 +150,58 @@ func TestNewResizingArrayStackOfStrings(t *testing.T) {
 		})
 	}
 }
+
+// some benchmarks
+func benchmarkStack(stack OfStrings, size int, b *testing.B) {
+	// run size * push-pop operations on stack b.N
+	for i := 0; i < b.N; i++ {
+		for o := 0; o <= size; o++ {
+			stack.Push("dummy")
+		}
+		for o := 0; o <= size; o++ {
+			stack.Pop()
+		}
+	}
+}
+
+func benchmarkOfStringsLL(size int, b *testing.B) {
+	stack := NewStackOfStringsLL()
+	benchmarkStack(stack, size, b)
+}
+
+func BenchmarkOfStringsLL_1(b *testing.B)    { benchmarkOfStringsLL(1, b) }
+func BenchmarkOfStringsLL_10(b *testing.B)   { benchmarkOfStringsLL(10, b) }
+func BenchmarkOfStringsLL_100(b *testing.B)  { benchmarkOfStringsLL(100, b) }
+func BenchmarkOfStringsLL_1000(b *testing.B) { benchmarkOfStringsLL(1000, b) }
+
+func benchmarkFixedCapacityStackOfStrings(size int, b *testing.B) {
+	stack := NewFixedCapacityStackOfStrings(1001)
+	benchmarkStack(stack, size, b)
+}
+
+func BenchmarkFixedCapacityStackOfStrings_1(b *testing.B) { benchmarkFixedCapacityStackOfStrings(1, b) }
+func BenchmarkFixedCapacityStackOfStrings_10(b *testing.B) {
+	benchmarkFixedCapacityStackOfStrings(10, b)
+}
+func BenchmarkFixedCapacityStackOfStrings_100(b *testing.B) {
+	benchmarkFixedCapacityStackOfStrings(100, b)
+}
+func BenchmarkFixedCapacityStackOfStrings_1000(b *testing.B) {
+	benchmarkFixedCapacityStackOfStrings(1000, b)
+}
+
+func benchmarkResizingArrayStackOfStrings(size int, b *testing.B) {
+	stack := NewResizingArrayStackOfStrings()
+	benchmarkStack(stack, size, b)
+}
+
+func BenchmarkResizingArrayStackOfStrings_1(b *testing.B) { benchmarkResizingArrayStackOfStrings(1, b) }
+func BenchmarkResizingArrayStackOfStrings_10(b *testing.B) {
+	benchmarkResizingArrayStackOfStrings(10, b)
+}
+func BenchmarkResizingArrayStackOfStrings_100(b *testing.B) {
+	benchmarkResizingArrayStackOfStrings(100, b)
+}
+func BenchmarkResizingArrayStackOfStrings_1000(b *testing.B) {
+	benchmarkResizingArrayStackOfStrings(1000, b)
+}
