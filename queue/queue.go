@@ -1,3 +1,4 @@
+//queue implementation
 package queue
 
 type OfStrings interface {
@@ -29,14 +30,14 @@ func NewOfStringsLL() *OfStringsLL {
 func (q *OfStringsLL) Enqueue(item string) {
 	oldLast := q.last
 	//new node for the end of the list
-	last := &node{
+	q.last = &node{
 		item: item,
 		next: nil,
 	}
 	if q.IsEmpty() {
 		q.first = q.last
 	} else {
-		oldLast.next = last
+		oldLast.next = q.last
 	}
 }
 
