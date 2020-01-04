@@ -108,8 +108,8 @@ func (s *ResizingArrayStackOfStrings) IsEmpty() bool {
 
 func (s *ResizingArrayStackOfStrings) resize(capacity int) {
 	copy := make([]string, capacity)
-	for i, v := range s.s {
-		copy[i] = v
+	for i := 0; i < s.n; i++ {
+		copy[i] = s.s[i]
 	}
 	s.s = copy
 }
