@@ -94,7 +94,11 @@ func (s *ResizingArrayStackOfStrings) Push(item string) {
 //Pop item from the stack
 func (s *ResizingArrayStackOfStrings) Pop() string {
 	s.n--
-	return s.s[s.n]
+	item := s.s[s.n]
+	if s.n > 0 && s.n == len(s.s)/4 {
+		s.resize(len(s.s) / 2)
+	}
+	return item
 }
 
 //IsEmpty check if stack is empty
