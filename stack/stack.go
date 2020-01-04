@@ -102,7 +102,7 @@ func (s *ResizingArrayStackOfStrings) Pop() string {
 }
 
 //IsEmpty check if stack is empty
-func (s ResizingArrayStackOfStrings) IsEmpty() bool {
+func (s *ResizingArrayStackOfStrings) IsEmpty() bool {
 	return s.n == 0
 }
 
