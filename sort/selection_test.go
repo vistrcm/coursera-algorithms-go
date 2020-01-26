@@ -78,9 +78,28 @@ func benchmarkSearch(size int, b *testing.B) {
 	}
 }
 
+// some benchmarks
+func benchmarkSearchSorted(size int, b *testing.B) {
+	// prepare big slice
+	bigSlice := make([]int, size)
+	for i := range bigSlice {
+		bigSlice[i] = i
+	}
+
+	// run size * push-pop operations on stack b.N
+	for i := 0; i < b.N; i++ {
+		for o := 0; o <= size; o++ {
+			Selection(IntSlice(bigSlice))
+		}
+	}
+}
+
 func BenchmarkSearch_1(b *testing.B)    { benchmarkSearch(1, b) }
 func BenchmarkSearch_10(b *testing.B)   { benchmarkSearch(10, b) }
 func BenchmarkSearch_100(b *testing.B)  { benchmarkSearch(100, b) }
 func BenchmarkSearch_1000(b *testing.B) { benchmarkSearch(1000, b) }
 
-//func BenchmarkSearch_10000(b *testing.B)    { benchmarkSearch(10000, b) }
+func BenchmarkSearchSorted_1(b *testing.B)    { benchmarkSearchSorted(1, b) }
+func BenchmarkSearchSorted_10(b *testing.B)   { benchmarkSearchSorted(10, b) }
+func BenchmarkSearchSorted_100(b *testing.B)  { benchmarkSearchSorted(100, b) }
+func BenchmarkSearchSorted_1000(b *testing.B) { benchmarkSearchSorted(1000, b) }
