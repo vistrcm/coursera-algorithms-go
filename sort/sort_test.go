@@ -117,3 +117,16 @@ func BenchmarkSelectionSorted_1(b *testing.B)    { benchmarkSelectionSorted(1, b
 func BenchmarkSelectionSorted_10(b *testing.B)   { benchmarkSelectionSorted(10, b) }
 func BenchmarkSelectionSorted_100(b *testing.B)  { benchmarkSelectionSorted(100, b) }
 func BenchmarkSelectionSorted_1000(b *testing.B) { benchmarkSelectionSorted(1000, b) }
+
+func benchmarkInsertion(size int, b *testing.B)       { benchmarkSearch(Insertion, size, b) }
+func benchmarkInsertionSorted(size int, b *testing.B) { benchmarkSearchSorted(Insertion, size, b) }
+
+func BenchmarkInsertion_1(b *testing.B)    { benchmarkInsertion(1, b) }
+func BenchmarkInsertion_10(b *testing.B)   { benchmarkInsertion(10, b) }
+func BenchmarkInsertion_100(b *testing.B)  { benchmarkInsertion(100, b) }
+func BenchmarkInsertion_1000(b *testing.B) { benchmarkInsertion(1000, b) }
+
+func BenchmarkInsertionSorted_1(b *testing.B)    { benchmarkInsertionSorted(1, b) }
+func BenchmarkInsertionSorted_10(b *testing.B)   { benchmarkInsertionSorted(10, b) }
+func BenchmarkInsertionSorted_100(b *testing.B)  { benchmarkInsertionSorted(100, b) }
+func BenchmarkInsertionSorted_1000(b *testing.B) { benchmarkInsertionSorted(1000, b) }
