@@ -66,7 +66,7 @@ func TestSort(t *testing.T) {
 }
 
 // some benchmarks
-func benchmarkSearch(size int, b *testing.B) {
+func benchmarkSelection(size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := generateRandomIntSlice(size)
 
@@ -79,7 +79,7 @@ func benchmarkSearch(size int, b *testing.B) {
 }
 
 // some benchmarks
-func benchmarkSearchSorted(size int, b *testing.B) {
+func benchmarkSelectionSorted(size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := make([]int, size)
 	for i := range bigSlice {
@@ -94,12 +94,12 @@ func benchmarkSearchSorted(size int, b *testing.B) {
 	}
 }
 
-func BenchmarkSearch_1(b *testing.B)    { benchmarkSearch(1, b) }
-func BenchmarkSearch_10(b *testing.B)   { benchmarkSearch(10, b) }
-func BenchmarkSearch_100(b *testing.B)  { benchmarkSearch(100, b) }
-func BenchmarkSearch_1000(b *testing.B) { benchmarkSearch(1000, b) }
+func BenchmarkSelection_1(b *testing.B)    { benchmarkSelection(1, b) }
+func BenchmarkSelection_10(b *testing.B)   { benchmarkSelection(10, b) }
+func BenchmarkSelection_100(b *testing.B)  { benchmarkSelection(100, b) }
+func BenchmarkSelection_1000(b *testing.B) { benchmarkSelection(1000, b) }
 
-func BenchmarkSearchSorted_1(b *testing.B)    { benchmarkSearchSorted(1, b) }
-func BenchmarkSearchSorted_10(b *testing.B)   { benchmarkSearchSorted(10, b) }
-func BenchmarkSearchSorted_100(b *testing.B)  { benchmarkSearchSorted(100, b) }
-func BenchmarkSearchSorted_1000(b *testing.B) { benchmarkSearchSorted(1000, b) }
+func BenchmarkSelectionSorted_1(b *testing.B)    { benchmarkSelectionSorted(1, b) }
+func BenchmarkSelectionSorted_10(b *testing.B)   { benchmarkSelectionSorted(10, b) }
+func BenchmarkSelectionSorted_100(b *testing.B)  { benchmarkSelectionSorted(100, b) }
+func BenchmarkSelectionSorted_1000(b *testing.B) { benchmarkSelectionSorted(1000, b) }
