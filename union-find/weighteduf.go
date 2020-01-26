@@ -10,7 +10,7 @@ type QuickUnionWUF struct {
 func NewQuickUnionWUF(N int) QuickUnionWUF {
 	id := make([]int, N)
 	sz := make([]int, N)
-	for pos, _ := range id {
+	for pos := range id {
 		id[pos] = pos
 	}
 
