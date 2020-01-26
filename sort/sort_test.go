@@ -81,6 +81,7 @@ func benchmarkSearch(sortFunc func(sort.Interface), size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := generateRandomIntSlice(size)
 
+	b.ResetTimer()
 	// run size * push-pop operations on stack b.N
 	for i := 0; i < b.N; i++ {
 		for o := 0; o <= size; o++ {
@@ -97,6 +98,7 @@ func benchmarkSearchSorted(sortFunc func(sort.Interface), size int, b *testing.B
 		bigSlice[i] = i
 	}
 
+	b.ResetTimer()
 	// run size * push-pop operations on stack b.N
 	for i := 0; i < b.N; i++ {
 		for o := 0; o <= size; o++ {
@@ -113,6 +115,7 @@ func benchmarkSearchDescending(sortFunc func(sort.Interface), size int, b *testi
 		bigSlice[i] = size - i
 	}
 
+	b.ResetTimer()
 	// run size * push-pop operations on stack b.N
 	for i := 0; i < b.N; i++ {
 		for o := 0; o <= size; o++ {
@@ -152,13 +155,16 @@ func BenchmarkInsertion_1(b *testing.B)    { benchmarkInsertion(1, b) }
 func BenchmarkInsertion_10(b *testing.B)   { benchmarkInsertion(10, b) }
 func BenchmarkInsertion_100(b *testing.B)  { benchmarkInsertion(100, b) }
 func BenchmarkInsertion_1000(b *testing.B) { benchmarkInsertion(1000, b) }
+func BenchmarkInsertion_10000(b *testing.B) { benchmarkInsertion(10000, b) }
 
 func BenchmarkInsertionSorted_1(b *testing.B)    { benchmarkInsertionSorted(1, b) }
 func BenchmarkInsertionSorted_10(b *testing.B)   { benchmarkInsertionSorted(10, b) }
 func BenchmarkInsertionSorted_100(b *testing.B)  { benchmarkInsertionSorted(100, b) }
 func BenchmarkInsertionSorted_1000(b *testing.B) { benchmarkInsertionSorted(1000, b) }
+func BenchmarkInsertionSorted_10000(b *testing.B) { benchmarkInsertionSorted(10000, b) }
 
 func BenchmarkInsertionDescending_1(b *testing.B)    { benchmarkInsertionDescending(1, b) }
 func BenchmarkInsertionDescending_10(b *testing.B)   { benchmarkInsertionDescending(10, b) }
 func BenchmarkInsertionDescending_100(b *testing.B)  { benchmarkInsertionDescending(100, b) }
 func BenchmarkInsertionDescending_1000(b *testing.B) { benchmarkInsertionDescending(1000, b) }
+func BenchmarkInsertionDescending_10000(b *testing.B) { benchmarkInsertionDescending(10000, b) }
