@@ -105,8 +105,27 @@ func benchmarkSearchSorted(sortFunc func(sort.Interface), size int, b *testing.B
 	}
 }
 
+// some benchmarks
+func benchmarkSearchDescending(sortFunc func(sort.Interface), size int, b *testing.B) {
+	// prepare big slice
+	bigSlice := make([]int, size)
+	for i := range bigSlice {
+		bigSlice[i] = size - i
+	}
+
+	// run size * push-pop operations on stack b.N
+	for i := 0; i < b.N; i++ {
+		for o := 0; o <= size; o++ {
+			sortFunc(IntSlice(bigSlice))
+		}
+	}
+}
+
 func benchmarkSelection(size int, b *testing.B)       { benchmarkSearch(Selection, size, b) }
 func benchmarkSelectionSorted(size int, b *testing.B) { benchmarkSearchSorted(Selection, size, b) }
+func benchmarkSelectionDescending(size int, b *testing.B) {
+	benchmarkSearchDescending(Selection, size, b)
+}
 
 func BenchmarkSelection_1(b *testing.B)    { benchmarkSelection(1, b) }
 func BenchmarkSelection_10(b *testing.B)   { benchmarkSelection(10, b) }
@@ -118,8 +137,16 @@ func BenchmarkSelectionSorted_10(b *testing.B)   { benchmarkSelectionSorted(10, 
 func BenchmarkSelectionSorted_100(b *testing.B)  { benchmarkSelectionSorted(100, b) }
 func BenchmarkSelectionSorted_1000(b *testing.B) { benchmarkSelectionSorted(1000, b) }
 
+func BenchmarkSelectionDescending_1(b *testing.B)    { benchmarkSelectionDescending(1, b) }
+func BenchmarkSelectionDescending_10(b *testing.B)   { benchmarkSelectionDescending(10, b) }
+func BenchmarkSelectionDescending_100(b *testing.B)  { benchmarkSelectionDescending(100, b) }
+func BenchmarkSelectionDescending_1000(b *testing.B) { benchmarkSelectionDescending(1000, b) }
+
 func benchmarkInsertion(size int, b *testing.B)       { benchmarkSearch(Insertion, size, b) }
 func benchmarkInsertionSorted(size int, b *testing.B) { benchmarkSearchSorted(Insertion, size, b) }
+func benchmarkInsertionDescending(size int, b *testing.B) {
+	benchmarkSearchDescending(Insertion, size, b)
+}
 
 func BenchmarkInsertion_1(b *testing.B)    { benchmarkInsertion(1, b) }
 func BenchmarkInsertion_10(b *testing.B)   { benchmarkInsertion(10, b) }
@@ -130,3 +157,8 @@ func BenchmarkInsertionSorted_1(b *testing.B)    { benchmarkInsertionSorted(1, b
 func BenchmarkInsertionSorted_10(b *testing.B)   { benchmarkInsertionSorted(10, b) }
 func BenchmarkInsertionSorted_100(b *testing.B)  { benchmarkInsertionSorted(100, b) }
 func BenchmarkInsertionSorted_1000(b *testing.B) { benchmarkInsertionSorted(1000, b) }
+
+func BenchmarkInsertionDescending_1(b *testing.B)    { benchmarkInsertionDescending(1, b) }
+func BenchmarkInsertionDescending_10(b *testing.B)   { benchmarkInsertionDescending(10, b) }
+func BenchmarkInsertionDescending_100(b *testing.B)  { benchmarkInsertionDescending(100, b) }
+func BenchmarkInsertionDescending_1000(b *testing.B) { benchmarkInsertionDescending(1000, b) }
