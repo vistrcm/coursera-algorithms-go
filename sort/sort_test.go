@@ -77,20 +77,20 @@ func TestInsertion(t *testing.T) {
 }
 
 // some benchmarks
-func benchmarkSelection(size int, b *testing.B) {
+func benchmarkSearch(sortFunc func(sort.Interface), size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := generateRandomIntSlice(size)
 
 	// run size * push-pop operations on stack b.N
 	for i := 0; i < b.N; i++ {
 		for o := 0; o <= size; o++ {
-			Selection(IntSlice(bigSlice))
+			sortFunc(IntSlice(bigSlice))
 		}
 	}
 }
 
 // some benchmarks
-func benchmarkSelectionSorted(size int, b *testing.B) {
+func benchmarkSearchSorted(sortFunc func(sort.Interface), size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := make([]int, size)
 	for i := range bigSlice {
@@ -100,10 +100,13 @@ func benchmarkSelectionSorted(size int, b *testing.B) {
 	// run size * push-pop operations on stack b.N
 	for i := 0; i < b.N; i++ {
 		for o := 0; o <= size; o++ {
-			Selection(IntSlice(bigSlice))
+			sortFunc(IntSlice(bigSlice))
 		}
 	}
 }
+
+func benchmarkSelection(size int, b *testing.B)       { benchmarkSearch(Selection, size, b) }
+func benchmarkSelectionSorted(size int, b *testing.B) { benchmarkSearchSorted(Selection, size, b) }
 
 func BenchmarkSelection_1(b *testing.B)    { benchmarkSelection(1, b) }
 func BenchmarkSelection_10(b *testing.B)   { benchmarkSelection(10, b) }
