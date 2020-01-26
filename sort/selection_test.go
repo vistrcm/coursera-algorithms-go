@@ -3,6 +3,7 @@ package sort
 import (
 	"math/rand"
 	"reflect"
+	"runtime"
 	"sort"
 	"testing"
 )
@@ -21,7 +22,7 @@ func generateRandomIntSlice(n int) []int {
 	return s
 }
 
-func TestSort(t *testing.T) {
+func testSort(t *testing.T, sortFunc func(sort.Interface)) {
 	// prepare big slice
 	bigSlice := generateRandomIntSlice(1000)
 	bigSliceSorted := make([]int, len(bigSlice))
@@ -56,13 +57,23 @@ func TestSort(t *testing.T) {
 			copy(a, tt.args)
 
 			// sort
-			Selection(IntSlice(a))
+			sortFunc(IntSlice(a))
 			got := a
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Selection() for input %v. got %v, want %v", tt.args, got, tt.want)
+				// found how to get function name here: https://stackoverflow.com/questions/10742749/get-name-of-function-using-reflection
+				fName := runtime.FuncForPC(reflect.ValueOf(sortFunc).Pointer()).Name()
+				t.Errorf("%v for input %v. got %v, want %v", fName, tt.args, got, tt.want)
 			}
 		})
 	}
+}
+
+func TestSelection(t *testing.T) {
+	testSort(t, Selection)
+}
+
+func TestInsertion(t *testing.T) {
+	testSort(t, Insertion)
 }
 
 // some benchmarks
