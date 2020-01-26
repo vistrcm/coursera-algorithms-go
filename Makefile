@@ -1,4 +1,11 @@
-.DEFAULT_GOAL := test
+.DEFAULT_GOAL := all
+
+.PHONY: all
+all: lint test
+
+.PHONY: lint
+lint:
+	golangci-lint run ./...
 
 .PHONY: fmt
 fmt:
