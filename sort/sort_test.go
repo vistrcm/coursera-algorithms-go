@@ -76,6 +76,10 @@ func TestInsertion(t *testing.T) {
 	testSort(t, Insertion)
 }
 
+func TestShell(t *testing.T) {
+	testSort(t, Shell)
+}
+
 // some benchmarks
 func benchmarkSearch(sortFunc func(sort.Interface), size int, b *testing.B) {
 	// prepare big slice
