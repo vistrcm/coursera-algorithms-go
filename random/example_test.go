@@ -3,9 +3,12 @@ package random_test
 import (
 	"fmt"
 	"github.com/vistrcm/coursera-algorithms-pi-go/random"
+	"math/rand"
 )
 
 func ExampleShuffle() {
+
+	rand.Seed(42)
 
 	numbers := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	random.Shuffle(int64(len(numbers)), func(i, j int64) {
@@ -15,15 +18,15 @@ func ExampleShuffle() {
 	for _, val := range numbers {
 		fmt.Println(val)
 	}
-	// Unordered output: 0
-	// 1
-	// 2
-	// 3
+	// Output: 7
+	// 6
 	// 4
 	// 5
-	// 6
-	// 7
-	// 8
 	// 9
+	// 1
+	// 3
+	// 2
+	// 8
 	// 10
+	// 0
 }

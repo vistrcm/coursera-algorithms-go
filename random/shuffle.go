@@ -2,12 +2,10 @@ package random
 
 import (
 	"math/rand"
-	"time"
 )
 
 //Shuffle n times
 func Shuffle(n int64, swap func(p, n int64)) {
-	rand.Seed(time.Now().UnixNano())
 	var i int64
 	for i = 0; i < n; i++ {
 		r := rand.Int63n(i + 1)
