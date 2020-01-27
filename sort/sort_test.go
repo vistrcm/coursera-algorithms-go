@@ -128,6 +128,8 @@ func benchmarkSearchDescending(sortFunc func(sort.Interface), size int, b *testi
 	}
 }
 
+// benchmark Selection
+
 func benchmarkSelection(size int, b *testing.B)       { benchmarkSearch(Selection, size, b) }
 func benchmarkSelectionSorted(size int, b *testing.B) { benchmarkSearchSorted(Selection, size, b) }
 func benchmarkSelectionDescending(size int, b *testing.B) {
@@ -148,6 +150,8 @@ func BenchmarkSelectionDescending_1(b *testing.B)    { benchmarkSelectionDescend
 func BenchmarkSelectionDescending_10(b *testing.B)   { benchmarkSelectionDescending(10, b) }
 func BenchmarkSelectionDescending_100(b *testing.B)  { benchmarkSelectionDescending(100, b) }
 func BenchmarkSelectionDescending_1000(b *testing.B) { benchmarkSelectionDescending(1000, b) }
+
+// benchmark Insertion
 
 func benchmarkInsertion(size int, b *testing.B)       { benchmarkSearch(Insertion, size, b) }
 func benchmarkInsertionSorted(size int, b *testing.B) { benchmarkSearchSorted(Insertion, size, b) }
@@ -172,3 +176,28 @@ func BenchmarkInsertionDescending_10(b *testing.B)    { benchmarkInsertionDescen
 func BenchmarkInsertionDescending_100(b *testing.B)   { benchmarkInsertionDescending(100, b) }
 func BenchmarkInsertionDescending_1000(b *testing.B)  { benchmarkInsertionDescending(1000, b) }
 func BenchmarkInsertionDescending_10000(b *testing.B) { benchmarkInsertionDescending(10000, b) }
+
+// benchmark Shell
+func benchmarkShell(size int, b *testing.B)       { benchmarkSearch(Shell, size, b) }
+func benchmarkShellSorted(size int, b *testing.B) { benchmarkSearchSorted(Shell, size, b) }
+func benchmarkShellDescending(size int, b *testing.B) {
+	benchmarkSearchDescending(Shell, size, b)
+}
+
+func BenchmarkShell_1(b *testing.B)     { benchmarkShell(1, b) }
+func BenchmarkShell_10(b *testing.B)    { benchmarkShell(10, b) }
+func BenchmarkShell_100(b *testing.B)   { benchmarkShell(100, b) }
+func BenchmarkShell_1000(b *testing.B)  { benchmarkShell(1000, b) }
+func BenchmarkShell_10000(b *testing.B) { benchmarkShell(10000, b) }
+
+func BenchmarkShellSorted_1(b *testing.B)     { benchmarkShellSorted(1, b) }
+func BenchmarkShellSorted_10(b *testing.B)    { benchmarkShellSorted(10, b) }
+func BenchmarkShellSorted_100(b *testing.B)   { benchmarkShellSorted(100, b) }
+func BenchmarkShellSorted_1000(b *testing.B)  { benchmarkShellSorted(1000, b) }
+func BenchmarkShellSorted_10000(b *testing.B) { benchmarkShellSorted(10000, b) }
+
+func BenchmarkShellDescending_1(b *testing.B)     { benchmarkShellDescending(1, b) }
+func BenchmarkShellDescending_10(b *testing.B)    { benchmarkShellDescending(10, b) }
+func BenchmarkShellDescending_100(b *testing.B)   { benchmarkShellDescending(100, b) }
+func BenchmarkShellDescending_1000(b *testing.B)  { benchmarkShellDescending(1000, b) }
+func BenchmarkShellDescending_10000(b *testing.B) { benchmarkShellDescending(10000, b) }
