@@ -6,9 +6,11 @@ import (
 	"runtime"
 	"sort"
 	"testing"
+	"time"
 )
 
 func generateRandomIntSlice(n int) []int {
+	rand.Seed(time.Now().UTC().UnixNano())
 	s := make([]int, n)
 	for i := range s {
 		s[i] = rand.Int()
@@ -18,7 +20,7 @@ func generateRandomIntSlice(n int) []int {
 
 func testSort(t *testing.T, sortFunc func(slice sort.IntSlice)) {
 	// prepare big slice
-	bigSlice := generateRandomIntSlice(1000)
+	bigSlice := generateRandomIntSlice(10000)
 	bigSliceSorted := make([]int, len(bigSlice))
 	copy(bigSliceSorted, bigSlice)
 	sort.Ints(bigSliceSorted)
