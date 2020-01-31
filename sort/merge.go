@@ -24,6 +24,9 @@ func intSort(a sort.IntSlice, aux sort.IntSlice, lo, hi int, less func(a, b int)
 	mid := lo + (hi-lo)/2
 	intSort(a, aux, lo, mid, less)
 	intSort(a, aux, mid+1, hi, less)
+	if !less(a[mid+1], a[mid]) { // already sorted no need to continue
+		return
+	}
 	merge(a, aux, lo, mid, hi, less)
 }
 
