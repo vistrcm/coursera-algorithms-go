@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := all
 
 .PHONY: all
-all: lint test
+all: fmt lint test
 
 .PHONY: lint
 lint:
