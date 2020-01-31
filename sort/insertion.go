@@ -2,11 +2,9 @@ package sort
 
 import "sort"
 
-//Insertion implements Insertion sort
-func Insertion(a sort.Interface) {
-	n := a.Len()
-
-	for i := 0; i < n; i++ {
+//InsertionBounded sort elements of a between lo and hi using Insertion sort.
+func InsertionBounded(a sort.Interface, lo, hi int){
+	for i := lo; i < hi; i++ {
 		for j := i; j > 0; j-- {
 			if a.Less(j, j-1) {
 				a.Swap(j, j-1)
@@ -15,5 +13,12 @@ func Insertion(a sort.Interface) {
 			}
 		}
 	}
+}
 
+//Insertion implements Insertion sort
+func Insertion(a sort.Interface) {
+	lo := 0
+	hi := a.Len()
+
+	InsertionBounded(a, lo, hi)
 }
