@@ -4,6 +4,10 @@ import (
 	"sort"
 )
 
+const (
+	cutoff = 7 // cutoff for insertion sort
+)
+
 //Merge merge sort for integers
 func Merge(a sort.IntSlice) {
 	aux := make(sort.IntSlice, a.Len())
@@ -13,7 +17,8 @@ func Merge(a sort.IntSlice) {
 
 func intSort(a sort.IntSlice, aux sort.IntSlice, lo, hi int, less func(a, b int) bool) {
 
-	if hi <= lo {
+	if hi <= (lo + cutoff - 1) {
+		InsertionBounded(a, lo, hi+1)
 		return
 	}
 	mid := lo + (hi-lo)/2
