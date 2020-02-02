@@ -1,6 +1,7 @@
 package sort
 
 import (
+	"math"
 	"sort"
 )
 
@@ -59,6 +60,18 @@ func merge(a sort.IntSlice, aux sort.IntSlice, lo, mid, hi int, less func(a, b i
 					i++
 				}
 			}
+		}
+	}
+}
+
+//MergeBU bottom up version of merge sort
+func MergeBU(a sort.IntSlice) {
+	N := a.Len()
+	aux := make(sort.IntSlice, a.Len())
+	for sz := 1; sz < N; sz = sz + sz {
+		for lo := 0; lo < N-sz; lo += sz + sz {
+			merge(a, aux, lo, lo+sz-1, int(math.Min(float64(lo+sz+sz-1), float64(N-1))),
+				func(a, b int) bool { return a < b })
 		}
 	}
 }
