@@ -184,12 +184,19 @@ func benchmarkMergeBU(size int, b *testing.B)           { benchmarkRandom(MergeB
 func benchmarkMergeBUSorted(size int, b *testing.B)     { benchmarkSortedASC(MergeBU, size, b) }
 func benchmarkMergeBUDescending(size int, b *testing.B) { benchmarkSortedDESC(MergeBU, size, b) }
 
+//benchmark quicksort
+
+func benchmarkQuick(size int, b *testing.B)           { benchmarkRandom(Quick, size, b) }
+func benchmarkQuickSorted(size int, b *testing.B)     { benchmarkSortedASC(Quick, size, b) }
+func benchmarkQuickDescending(size int, b *testing.B) { benchmarkSortedDESC(Quick, size, b) }
+
 func Benchmark_10_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 10, b) }
 func Benchmark_10_Selection(b *testing.B) { benchmarkSelection(10, b) }
 func Benchmark_10_Insertion(b *testing.B) { benchmarkInsertion(10, b) }
 func Benchmark_10_Shell(b *testing.B)     { benchmarkShell(10, b) }
 func Benchmark_10_Merge(b *testing.B)     { benchmarkMerge(10, b) }
 func Benchmark_10_MergeBU(b *testing.B)   { benchmarkMergeBU(10, b) }
+func Benchmark_10_Quick(b *testing.B)     { benchmarkQuick(10, b) }
 
 func Benchmark_100_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 100, b) }
 func Benchmark_100_Selection(b *testing.B) { benchmarkSelection(100, b) }
@@ -197,6 +204,7 @@ func Benchmark_100_Insertion(b *testing.B) { benchmarkInsertion(100, b) }
 func Benchmark_100_Shell(b *testing.B)     { benchmarkShell(100, b) }
 func Benchmark_100_Merge(b *testing.B)     { benchmarkMerge(100, b) }
 func Benchmark_100_MergeBU(b *testing.B)   { benchmarkMergeBU(100, b) }
+func Benchmark_100_Quick(b *testing.B)     { benchmarkQuick(100, b) }
 
 func Benchmark_1000_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 1000, b) }
 func Benchmark_1000_Selection(b *testing.B) { benchmarkSelection(1000, b) }
@@ -204,12 +212,14 @@ func Benchmark_1000_Insertion(b *testing.B) { benchmarkInsertion(1000, b) }
 func Benchmark_1000_Shell(b *testing.B)     { benchmarkShell(1000, b) }
 func Benchmark_1000_Merge(b *testing.B)     { benchmarkMerge(1000, b) }
 func Benchmark_1000_MergeBU(b *testing.B)   { benchmarkMergeBU(1000, b) }
+func Benchmark_1000_Quick(b *testing.B)     { benchmarkQuick(1000, b) }
 
 func Benchmark_10000_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 10000, b) }
 func Benchmark_10000_Insertion(b *testing.B) { benchmarkInsertion(10000, b) }
 func Benchmark_10000_Shell(b *testing.B)     { benchmarkShell(10000, b) }
 func Benchmark_10000_Merge(b *testing.B)     { benchmarkMerge(10000, b) }
 func Benchmark_10000_MergeBU(b *testing.B)   { benchmarkMergeBU(10000, b) }
+func Benchmark_10000_Quick(b *testing.B)     { benchmarkQuick(10000, b) }
 
 func Benchmark_10_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 10, b) }
 func Benchmark_10_ASC_Selection(b *testing.B) { benchmarkSelectionSorted(10, b) }
@@ -217,6 +227,7 @@ func Benchmark_10_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(10, b) 
 func Benchmark_10_ASC_Shell(b *testing.B)     { benchmarkShellSorted(10, b) }
 func Benchmark_10_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(10, b) }
 func Benchmark_10_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(10, b) }
+func Benchmark_10_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(10, b) }
 
 func Benchmark_100_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 100, b) }
 func Benchmark_100_ASC_Selection(b *testing.B) { benchmarkSelectionSorted(100, b) }
@@ -224,6 +235,7 @@ func Benchmark_100_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(100, b
 func Benchmark_100_ASC_Shell(b *testing.B)     { benchmarkShellSorted(100, b) }
 func Benchmark_100_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(100, b) }
 func Benchmark_100_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(100, b) }
+func Benchmark_100_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(100, b) }
 
 func Benchmark_1000_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 1000, b) }
 func Benchmark_1000_ASC_Selection(b *testing.B) { benchmarkSelectionSorted(1000, b) }
@@ -231,12 +243,14 @@ func Benchmark_1000_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(1000,
 func Benchmark_1000_ASC_Shell(b *testing.B)     { benchmarkShellSorted(1000, b) }
 func Benchmark_1000_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(1000, b) }
 func Benchmark_1000_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(1000, b) }
+func Benchmark_1000_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(1000, b) }
 
 func Benchmark_10000_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 10000, b) }
 func Benchmark_10000_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(10000, b) }
 func Benchmark_10000_ASC_Shell(b *testing.B)     { benchmarkShellSorted(10000, b) }
 func Benchmark_10000_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(10000, b) }
 func Benchmark_10000_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(10000, b) }
+func Benchmark_10000_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(10000, b) }
 
 func Benchmark_10_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 10, b) }
 func Benchmark_10_DESC_Selection(b *testing.B) { benchmarkSelectionDescending(10, b) }
@@ -244,6 +258,7 @@ func Benchmark_10_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(10
 func Benchmark_10_DESC_Shell(b *testing.B)     { benchmarkShellDescending(10, b) }
 func Benchmark_10_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(10, b) }
 func Benchmark_10_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(10, b) }
+func Benchmark_10_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(10, b) }
 
 func Benchmark_100_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 100, b) }
 func Benchmark_100_DESC_Selection(b *testing.B) { benchmarkSelectionDescending(100, b) }
@@ -251,6 +266,7 @@ func Benchmark_100_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(1
 func Benchmark_100_DESC_Shell(b *testing.B)     { benchmarkShellDescending(100, b) }
 func Benchmark_100_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(100, b) }
 func Benchmark_100_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(100, b) }
+func Benchmark_100_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(100, b) }
 
 func Benchmark_1000_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 1000, b) }
 func Benchmark_1000_DESC_Selection(b *testing.B) { benchmarkSelectionDescending(1000, b) }
@@ -258,9 +274,11 @@ func Benchmark_1000_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(
 func Benchmark_1000_DESC_Shell(b *testing.B)     { benchmarkShellDescending(1000, b) }
 func Benchmark_1000_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(1000, b) }
 func Benchmark_1000_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(1000, b) }
+func Benchmark_1000_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(1000, b) }
 
 func Benchmark_10000_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 10000, b) }
 func Benchmark_10000_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(10000, b) }
 func Benchmark_10000_DESC_Shell(b *testing.B)     { benchmarkShellDescending(10000, b) }
 func Benchmark_10000_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(10000, b) }
 func Benchmark_10000_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(10000, b) }
+func Benchmark_10000_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(10000, b) }
