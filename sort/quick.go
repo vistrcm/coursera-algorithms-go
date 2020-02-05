@@ -8,11 +8,13 @@ import (
 //Quick implements quicksort algorithm
 func Quick(a sort.IntSlice) {
 	rand.Shuffle(a.Len(), a.Swap)
-	qIntSort(a, 0, a.Len() -1 )
+	qIntSort(a, 0, a.Len()-1)
 }
 
 func qIntSort(a sort.IntSlice, lo, hi int) {
-	if hi <= lo {return}
+	if hi <= lo {
+		return
+	}
 	j := partition(a, lo, hi)
 	qIntSort(a, lo, j-1)
 	qIntSort(a, j+1, hi)
@@ -20,17 +22,23 @@ func qIntSort(a sort.IntSlice, lo, hi int) {
 
 func partition(a sort.IntSlice, lo, hi int) int {
 	i := lo
-	j := hi +1
+	j := hi + 1
 	for {
-		for i++;a.Less(i, lo); i++ { // find item on the left to swap
-			if i == hi {break}
+		for i++; a.Less(i, lo); i++ { // find item on the left to swap
+			if i == hi {
+				break
+			}
 		}
 
 		for j--; a.Less(lo, j); j-- { // find item on the right to swap
-			if j == lo {break}
+			if j == lo {
+				break
+			}
 		}
 
-		if i>= j {break}
+		if i >= j {
+			break
+		}
 
 		a.Swap(i, j)
 	}
