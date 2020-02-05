@@ -96,6 +96,10 @@ func TestMergeBU(t *testing.T) {
 	testSort(t, MergeBU)
 }
 
+func TestQuick(t *testing.T) {
+	testSort(t, Quick)
+}
+
 // benchmark helpers
 func benchmarkRandom(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 	// prepare big slice
