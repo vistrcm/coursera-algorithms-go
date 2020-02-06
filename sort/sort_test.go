@@ -303,3 +303,6 @@ func Benchmark_10000_DESC_Shell(b *testing.B)     { benchmarkShellDescending(100
 func Benchmark_10000_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(10000, b) }
 func Benchmark_10000_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(10000, b) }
 func Benchmark_10000_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(10000, b) }
+func Benchmark_10000_DESC_Quick3Way(b *testing.B) { benchmarkQuick3WayDescending(10000, b) }
+
+
