@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	cutoff = 10 // cutoff for insertion sort
+	quickCutoff = 10 // cutoff for insertion sort
 )
 
 //Quick implements quicksort algorithm
@@ -16,11 +16,11 @@ func Quick(a sort.IntSlice) {
 }
 
 func qIntSort(a sort.IntSlice, lo, hi int) {
-	if hi <= (lo + cutoff - 1) {
+	if hi <= (lo + quickCutoff - 1) {
 		InsertionBounded(a, lo, hi+1)
 		return
 	}
-	
+
 	j := partition(a, lo, hi)
 	qIntSort(a, lo, j-1)
 	qIntSort(a, j+1, hi)
