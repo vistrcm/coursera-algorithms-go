@@ -1,6 +1,7 @@
 package sort
 
 import (
+	"fmt"
 	"math/rand"
 	"reflect"
 	"runtime"
@@ -105,7 +106,7 @@ func TestQuick3Way(t *testing.T) {
 }
 
 // benchmark helpers
-func benchmarkRandom(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
+func bRandom(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := generateRandomIntSlice(size)
 
@@ -117,7 +118,7 @@ func benchmarkRandom(sortFunc func(slice sort.IntSlice), size int, b *testing.B)
 		}
 	}
 }
-func benchmarkSortedASC(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
+func bASC(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := make([]int, size)
 	for i := range bigSlice {
@@ -132,7 +133,7 @@ func benchmarkSortedASC(sortFunc func(slice sort.IntSlice), size int, b *testing
 		}
 	}
 }
-func benchmarkSortedDESC(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
+func bDESC(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := make([]int, size)
 	for i := range bigSlice {
@@ -151,158 +152,46 @@ func stdSortWrapper(slice sort.IntSlice) {
 	sort.Sort(slice)
 }
 
-// benchmark Selection
+type testFunc func(sortFunc func(slice sort.IntSlice), size int, b *testing.B)
+type sortFunc func(slice sort.IntSlice)
 
-func benchmarkSelection(size int, b *testing.B) { benchmarkRandom(onIntSlice(Selection), size, b) }
-func benchmarkSelectionSorted(size int, b *testing.B) {
-	benchmarkSortedASC(onIntSlice(Selection), size, b)
-}
-func benchmarkSelectionDescending(size int, b *testing.B) {
-	benchmarkSortedDESC(onIntSlice(Selection), size, b)
-}
-
-// benchmark Insertion
-
-func benchmarkInsertion(size int, b *testing.B) { benchmarkRandom(onIntSlice(Insertion), size, b) }
-func benchmarkInsertionSorted(size int, b *testing.B) {
-	benchmarkSortedASC(onIntSlice(Insertion), size, b)
-}
-func benchmarkInsertionDescending(size int, b *testing.B) {
-	benchmarkSortedDESC(onIntSlice(Insertion), size, b)
+func benchGenerator(testF testFunc, sortF sortFunc, size int) func(b *testing.B) {
+	return func(b *testing.B) {
+		testF(sortF, size, b)
+	}
 }
 
-// benchmark Shell
-func benchmarkShell(size int, b *testing.B)           { benchmarkRandom(onIntSlice(Shell), size, b) }
-func benchmarkShellSorted(size int, b *testing.B)     { benchmarkSortedASC(onIntSlice(Shell), size, b) }
-func benchmarkShellDescending(size int, b *testing.B) { benchmarkSortedDESC(onIntSlice(Shell), size, b) }
+func BenchmarkSort(b *testing.B) {
+	tests := []struct {
+		name string
+		f    func(a sort.IntSlice)
+	}{
+		//{name: "Selection", f: onIntSlice(Selection)},
+		{name: "STD", f: stdSortWrapper},
+		{name: "Insertion", f: onIntSlice(Insertion)},
+		{name: "Shell", f: onIntSlice(Shell)},
+		{name: "Merge", f: Merge},
+		{name: "MergeBU", f: MergeBU},
+		{name: "Quick", f: Quick},
+		{name: "Quick3Way", f: Quick3Way},
+	}
 
-//benchmark merge
+	testTypes := []struct {
+		name string
+		f    func(sortFunc func(slice sort.IntSlice), size int, b *testing.B)
+	}{
+		{name: "random", f: bRandom},
+		{name: "ASC", f: bASC},
+		{name: "DESC", f: bDESC},
+	}
 
-func benchmarkMerge(size int, b *testing.B)           { benchmarkRandom(Merge, size, b) }
-func benchmarkMergeSorted(size int, b *testing.B)     { benchmarkSortedASC(Merge, size, b) }
-func benchmarkMergeDescending(size int, b *testing.B) { benchmarkSortedDESC(Merge, size, b) }
-
-//benchmark merge bottom up
-
-func benchmarkMergeBU(size int, b *testing.B)           { benchmarkRandom(MergeBU, size, b) }
-func benchmarkMergeBUSorted(size int, b *testing.B)     { benchmarkSortedASC(MergeBU, size, b) }
-func benchmarkMergeBUDescending(size int, b *testing.B) { benchmarkSortedDESC(MergeBU, size, b) }
-
-//benchmark quicksort
-
-func benchmarkQuick(size int, b *testing.B)           { benchmarkRandom(Quick, size, b) }
-func benchmarkQuickSorted(size int, b *testing.B)     { benchmarkSortedASC(Quick, size, b) }
-func benchmarkQuickDescending(size int, b *testing.B) { benchmarkSortedDESC(Quick, size, b) }
-
-//benchmark Quick3Way
-
-func benchmarkQuick3Way(size int, b *testing.B)           { benchmarkRandom(Quick3Way, size, b) }
-func benchmarkQuick3WaySorted(size int, b *testing.B)     { benchmarkSortedASC(Quick3Way, size, b) }
-func benchmarkQuick3WayDescending(size int, b *testing.B) { benchmarkSortedDESC(Quick3Way, size, b) }
-
-func Benchmark_10_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 10, b) }
-func Benchmark_10_Selection(b *testing.B) { benchmarkSelection(10, b) }
-func Benchmark_10_Insertion(b *testing.B) { benchmarkInsertion(10, b) }
-func Benchmark_10_Shell(b *testing.B)     { benchmarkShell(10, b) }
-func Benchmark_10_Merge(b *testing.B)     { benchmarkMerge(10, b) }
-func Benchmark_10_MergeBU(b *testing.B)   { benchmarkMergeBU(10, b) }
-func Benchmark_10_Quick(b *testing.B)     { benchmarkQuick(10, b) }
-func Benchmark_10_Quick3Way(b *testing.B) { benchmarkQuick3Way(10, b) }
-
-func Benchmark_100_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 100, b) }
-func Benchmark_100_Selection(b *testing.B) { benchmarkSelection(100, b) }
-func Benchmark_100_Insertion(b *testing.B) { benchmarkInsertion(100, b) }
-func Benchmark_100_Shell(b *testing.B)     { benchmarkShell(100, b) }
-func Benchmark_100_Merge(b *testing.B)     { benchmarkMerge(100, b) }
-func Benchmark_100_MergeBU(b *testing.B)   { benchmarkMergeBU(100, b) }
-func Benchmark_100_Quick(b *testing.B)     { benchmarkQuick(100, b) }
-func Benchmark_100_Quick3Way(b *testing.B) { benchmarkQuick3Way(100, b) }
-
-func Benchmark_1000_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 1000, b) }
-func Benchmark_1000_Selection(b *testing.B) { benchmarkSelection(1000, b) }
-func Benchmark_1000_Insertion(b *testing.B) { benchmarkInsertion(1000, b) }
-func Benchmark_1000_Shell(b *testing.B)     { benchmarkShell(1000, b) }
-func Benchmark_1000_Merge(b *testing.B)     { benchmarkMerge(1000, b) }
-func Benchmark_1000_MergeBU(b *testing.B)   { benchmarkMergeBU(1000, b) }
-func Benchmark_1000_Quick(b *testing.B)     { benchmarkQuick(1000, b) }
-func Benchmark_1000_Quick3Way(b *testing.B) { benchmarkQuick3Way(1000, b) }
-
-func Benchmark_10000_STD(b *testing.B)       { benchmarkRandom(stdSortWrapper, 10000, b) }
-func Benchmark_10000_Insertion(b *testing.B) { benchmarkInsertion(10000, b) }
-func Benchmark_10000_Shell(b *testing.B)     { benchmarkShell(10000, b) }
-func Benchmark_10000_Merge(b *testing.B)     { benchmarkMerge(10000, b) }
-func Benchmark_10000_MergeBU(b *testing.B)   { benchmarkMergeBU(10000, b) }
-func Benchmark_10000_Quick(b *testing.B)     { benchmarkQuick(10000, b) }
-func Benchmark_10000_Quick3Way(b *testing.B) { benchmarkQuick3Way(10000, b) }
-
-func Benchmark_10_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 10, b) }
-func Benchmark_10_ASC_Selection(b *testing.B) { benchmarkSelectionSorted(10, b) }
-func Benchmark_10_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(10, b) }
-func Benchmark_10_ASC_Shell(b *testing.B)     { benchmarkShellSorted(10, b) }
-func Benchmark_10_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(10, b) }
-func Benchmark_10_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(10, b) }
-func Benchmark_10_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(10, b) }
-func Benchmark_10_ASC_Quick3Way(b *testing.B) { benchmarkQuick3WaySorted(10, b) }
-
-func Benchmark_100_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 100, b) }
-func Benchmark_100_ASC_Selection(b *testing.B) { benchmarkSelectionSorted(100, b) }
-func Benchmark_100_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(100, b) }
-func Benchmark_100_ASC_Shell(b *testing.B)     { benchmarkShellSorted(100, b) }
-func Benchmark_100_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(100, b) }
-func Benchmark_100_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(100, b) }
-func Benchmark_100_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(100, b) }
-func Benchmark_100_ASC_Quick3Way(b *testing.B) { benchmarkQuick3WaySorted(100, b) }
-
-func Benchmark_1000_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 1000, b) }
-func Benchmark_1000_ASC_Selection(b *testing.B) { benchmarkSelectionSorted(1000, b) }
-func Benchmark_1000_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(1000, b) }
-func Benchmark_1000_ASC_Shell(b *testing.B)     { benchmarkShellSorted(1000, b) }
-func Benchmark_1000_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(1000, b) }
-func Benchmark_1000_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(1000, b) }
-func Benchmark_1000_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(1000, b) }
-func Benchmark_1000_ASC_Quick3Way(b *testing.B) { benchmarkQuick3WaySorted(1000, b) }
-
-func Benchmark_10000_ASC_STD(b *testing.B)       { benchmarkSortedASC(stdSortWrapper, 10000, b) }
-func Benchmark_10000_ASC_Insertion(b *testing.B) { benchmarkInsertionSorted(10000, b) }
-func Benchmark_10000_ASC_Shell(b *testing.B)     { benchmarkShellSorted(10000, b) }
-func Benchmark_10000_ASC_Merge(b *testing.B)     { benchmarkMergeSorted(10000, b) }
-func Benchmark_10000_ASC_MergeBU(b *testing.B)   { benchmarkMergeBUSorted(10000, b) }
-func Benchmark_10000_ASC_Quick(b *testing.B)     { benchmarkQuickSorted(10000, b) }
-func Benchmark_10000_ASC_Quick3Way(b *testing.B) { benchmarkQuick3WaySorted(10000, b) }
-
-func Benchmark_10_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 10, b) }
-func Benchmark_10_DESC_Selection(b *testing.B) { benchmarkSelectionDescending(10, b) }
-func Benchmark_10_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(10, b) }
-func Benchmark_10_DESC_Shell(b *testing.B)     { benchmarkShellDescending(10, b) }
-func Benchmark_10_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(10, b) }
-func Benchmark_10_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(10, b) }
-func Benchmark_10_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(10, b) }
-func Benchmark_10_DESC_Quick3Way(b *testing.B) { benchmarkQuick3WayDescending(10, b) }
-
-func Benchmark_100_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 100, b) }
-func Benchmark_100_DESC_Selection(b *testing.B) { benchmarkSelectionDescending(100, b) }
-func Benchmark_100_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(100, b) }
-func Benchmark_100_DESC_Shell(b *testing.B)     { benchmarkShellDescending(100, b) }
-func Benchmark_100_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(100, b) }
-func Benchmark_100_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(100, b) }
-func Benchmark_100_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(100, b) }
-func Benchmark_100_DESC_Quick3Way(b *testing.B) { benchmarkQuick3WayDescending(100, b) }
-
-func Benchmark_1000_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 1000, b) }
-func Benchmark_1000_DESC_Selection(b *testing.B) { benchmarkSelectionDescending(1000, b) }
-func Benchmark_1000_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(1000, b) }
-func Benchmark_1000_DESC_Shell(b *testing.B)     { benchmarkShellDescending(1000, b) }
-func Benchmark_1000_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(1000, b) }
-func Benchmark_1000_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(1000, b) }
-func Benchmark_1000_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(1000, b) }
-func Benchmark_1000_DESC_Quick3Way(b *testing.B) { benchmarkQuick3WayDescending(1000, b) }
-
-func Benchmark_10000_DESC_STD(b *testing.B)       { benchmarkSortedDESC(stdSortWrapper, 10000, b) }
-func Benchmark_10000_DESC_Insertion(b *testing.B) { benchmarkInsertionDescending(10000, b) }
-func Benchmark_10000_DESC_Shell(b *testing.B)     { benchmarkShellDescending(10000, b) }
-func Benchmark_10000_DESC_Merge(b *testing.B)     { benchmarkMergeDescending(10000, b) }
-func Benchmark_10000_DESC_MergeBU(b *testing.B)   { benchmarkMergeBUDescending(10000, b) }
-func Benchmark_10000_DESC_Quick(b *testing.B)     { benchmarkQuickDescending(10000, b) }
-func Benchmark_10000_DESC_Quick3Way(b *testing.B) { benchmarkQuick3WayDescending(10000, b) }
-
-
+	dataSizes := []int{10, 100, 1000, 10000}
+	for _, size := range dataSizes {
+		for _, testType := range testTypes {
+			for _, test := range tests {
+				benchName := fmt.Sprintf("%s-%s-%d", testType.name, test.name, size)
+				b.Run(benchName, benchGenerator(testType.f, test.f, size))
+			}
+		}
+	}
+}
