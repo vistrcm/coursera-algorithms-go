@@ -1,11 +1,13 @@
 package sort
 
 import (
+	"math/rand"
 	"sort"
 )
 
 //Quick3Way implement 3-way quick sort
-func Quick3Way(a sort.IntSlice){
+func Quick3Way(a sort.IntSlice) {
+	rand.Shuffle(a.Len(), a.Swap)
 	q3way(a, 0, a.Len()-1)
 }
 
@@ -15,10 +17,10 @@ func q3way(a sort.IntSlice, lo, hi int) {
 	}
 	lt := lo
 	gt := hi
-	v := a[lo]
-	i := lo
+	v := a[lo] // partition key
+	i := lo + 1
 	for i <= gt {
-		cmp := compare(a, i, v)
+		cmp := a[i] - v
 		if cmp < 0 {
 			a.Swap(lt, i)
 			lt++
@@ -33,8 +35,4 @@ func q3way(a sort.IntSlice, lo, hi int) {
 	q3way(a, lo, lt-1)
 	q3way(a, gt+1, hi)
 
-}
-
-func compare(a sort.IntSlice, i int, v int) int {
-	return a[i] - a[v]
 }
