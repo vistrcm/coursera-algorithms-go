@@ -100,6 +100,10 @@ func TestQuick(t *testing.T) {
 	testSort(t, Quick)
 }
 
+func TestQuick3Way(t *testing.T) {
+	testSort(t, Quick3Way)
+}
+
 // benchmark helpers
 func benchmarkRandom(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 	// prepare big slice
