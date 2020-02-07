@@ -118,6 +118,22 @@ func bRandom(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 		}
 	}
 }
+func bEqual(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
+	// prepare big slice
+	randInt := rand.Int()
+	bigSlice := make([]int, size)
+	for i := range bigSlice {
+		bigSlice[i] = randInt
+	}
+
+	b.ResetTimer()
+	// run size * push-pop operations on stack b.N
+	for i := 0; i < b.N; i++ {
+		for o := 0; o <= size; o++ {
+			sortFunc(bigSlice)
+		}
+	}
+}
 func bASC(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 	// prepare big slice
 	bigSlice := make([]int, size)
@@ -167,7 +183,7 @@ func BenchmarkSort(b *testing.B) {
 		f    func(a sort.IntSlice)
 	}{
 		//{name: "Selection", f: onIntSlice(Selection)},
-		{name: "STD", f: stdSortWrapper},
+		{name: "Standard", f: stdSortWrapper},
 		{name: "Insertion", f: onIntSlice(Insertion)},
 		{name: "Shell", f: onIntSlice(Shell)},
 		{name: "Merge", f: Merge},
@@ -181,6 +197,7 @@ func BenchmarkSort(b *testing.B) {
 		f    func(sortFunc func(slice sort.IntSlice), size int, b *testing.B)
 	}{
 		{name: "random", f: bRandom},
+		{name: "equal", f: bEqual},
 		{name: "ASC", f: bASC},
 		{name: "DESC", f: bDESC},
 	}
