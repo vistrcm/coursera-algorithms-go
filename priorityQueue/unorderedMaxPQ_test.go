@@ -6,7 +6,7 @@ import (
 )
 
 func ExampleUnorderedMaxPQ() {
-	q := priorityQueue.NewUnorderedMaxPQ(10)
+	q := priorityQueue.NewUnorderedMaxPQ(7) // need at least 7 positions to store next elements
 	q.Insert(priorityQueue.Item{"P"})
 	q.Insert(priorityQueue.Item{"Q"})
 	q.Insert(priorityQueue.Item{"E"})
