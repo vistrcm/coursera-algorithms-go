@@ -1,6 +1,5 @@
 package priorityQueue
 
-
 //HeapPQ simple implementation of a Priority queue
 type HeapPQ struct {
 	items []*Item
@@ -17,7 +16,7 @@ func (pq HeapPQ) IsEmpty() bool {
 	return pq.N == 0
 }
 
-func (pq *HeapPQ)Insert(x Item) {
+func (pq *HeapPQ) Insert(x Item) {
 	pq.N++
 	pq.items[pq.N] = &x
 	pq.swim(pq.N)
@@ -31,7 +30,7 @@ func (pq HeapPQ) less(a, b int) bool {
 	return pq.items[a].Value < pq.items[b].Value
 }
 
-func (pq *HeapPQ)DelMax() Item {
+func (pq *HeapPQ) DelMax() Item {
 	max := pq.items[1]
 	pq.exch(1, pq.N)
 	pq.N--
@@ -40,21 +39,24 @@ func (pq *HeapPQ)DelMax() Item {
 	return *max
 }
 
-func (pq *HeapPQ)swim(k int){
+func (pq *HeapPQ) swim(k int) {
 	for k > 1 && pq.less(k/2, k) {
 		pq.exch(k, k/2)
-		k = k/2
+		k = k / 2
 	}
 
 }
 
-func (pq *HeapPQ)sink(k int){
-	for 2*k <=pq.N {
-		j := 2*k
-		if j < pq.N && pq.less(j, j+1) {j++}
-		if !pq.less(k, j) {break}
+func (pq *HeapPQ) sink(k int) {
+	for 2*k <= pq.N {
+		j := 2 * k
+		if j < pq.N && pq.less(j, j+1) {
+			j++
+		}
+		if !pq.less(k, j) {
+			break
+		}
 		pq.exch(k, j)
 		k = j
 	}
 }
-

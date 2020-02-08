@@ -26,8 +26,6 @@ func ExampleUnorderedMaxPQ() {
 	// P
 }
 
-
-
 func ExampleHeapPQ() {
 	q := priorityQueue.NewHeapPQ(7) // need at least 7 positions to store next elements
 	q.Insert(priorityQueue.Item{"P"})
