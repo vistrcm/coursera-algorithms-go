@@ -105,6 +105,10 @@ func TestQuick3Way(t *testing.T) {
 	testSort(t, Quick3Way)
 }
 
+func TestHeap(t *testing.T) {
+	testSort(t, Heap)
+}
+
 // benchmark helpers
 func bRandom(sortFunc func(slice sort.IntSlice), size int, b *testing.B) {
 	// prepare big slice
@@ -190,6 +194,7 @@ func BenchmarkSort(b *testing.B) {
 		{name: "MergeBU", f: MergeBU},
 		{name: "Quick", f: Quick},
 		{name: "Quick3Way", f: Quick3Way},
+		{name: "Heap", f: Heap},
 	}
 
 	testTypes := []struct {
