@@ -59,8 +59,45 @@ func (bst BST) Get(key Key) Value {
 	return nil
 }
 
-func (bst BST) Delete(key Key) {
-	panic("NOT implemented")
+func (bst *BST) Delete(key Key) {
+	bst.root = del(bst.root, key)
+}
+
+func del(x *node, key Key) *node {
+	if x == nil {
+		return nil
+	}
+	cmp := key.CompareTo(x.key)
+	if cmp < 0 {
+		x.left = del(x.left, key)
+	} else if cmp > 0 {
+		x.right = del(x.right, key)
+	} else {
+		if x.right == nil {
+			return x.left
+		}
+		if x.left == nil {
+			return x.right
+		}
+
+		t := x
+		x = min(t.right)
+		x.right = deleteMin(t.right)
+		x.left = t.left
+	}
+	x.count = size(x.left) + size(x.right) + 1
+	return x
+}
+
+func (bst *BST) Min() Key {
+	return min(bst.root).key
+}
+
+func min(x *node) *node {
+	if x.left == nil {
+		return x
+	}
+	return min(x.left)
 }
 
 func (bst *BST) Keys() []Key {
@@ -136,4 +173,17 @@ func rank(key Key, x *node) int {
 	} else {
 		return size(x.left)
 	}
+}
+
+func (bst *BST) DeleteMin() {
+	bst.root = deleteMin(bst.root)
+}
+
+func deleteMin(x *node) *node {
+	if x.left == nil {
+		return x.right
+	}
+	x.left = deleteMin(x.left)
+	x.count = 1 + size(x.left) + size(x.right)
+	return x
 }
