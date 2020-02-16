@@ -2,34 +2,35 @@ package st
 
 type Comparable interface {
 	//CompareTo should return negative int if other is bigger, 0 if equal and positive int if less
-	CompareTo(other Comparable) int
+	CompareTo(other interface{}) int
 }
 
 type Key Comparable
 type Value interface{}
 
-type Node struct {
+type node struct {
 	key   Key
 	value Value
-	left  *Node
-	right *Node
+	left  *node
+	right *node
+	count int
 }
 
-func NewNode(key Key, value Value) *Node {
-	return &Node{key: key, value: value}
+func newNode(key Key, value Value) *node {
+	return &node{key: key, value: value}
 }
 
 type BST struct {
-	root *Node
+	root *node
 }
 
-func (bst BST) Put(key Key, value Value) {
+func (bst *BST) Put(key Key, value Value) {
 	bst.root = put(bst.root, key, value)
 }
 
-func put(x *Node, key Key, value Value) *Node {
+func put(x *node, key Key, value Value) *node {
 	if x == nil {
-		return NewNode(key, value)
+		return newNode(key, value)
 	}
 	cmp := key.CompareTo(x.key)
 	if cmp < 0 {
@@ -39,6 +40,7 @@ func put(x *Node, key Key, value Value) *Node {
 	} else {
 		x.value = value
 	}
+	x.count = 1 + size(x.left) + size(x.right)
 	return x
 }
 
@@ -61,6 +63,77 @@ func (bst BST) Delete(key Key) {
 	panic("NOT implemented")
 }
 
-func (bst BST) Keys() []Key {
-	panic("NOT implemented")
+func (bst *BST) Keys() []Key {
+	var q []Key
+	inorder(bst.root, &q)
+	return q
+}
+
+func inorder(x *node, q *[]Key) {
+	if x == nil {
+		return
+	}
+	inorder(x.left, q)
+	*q = append(*q, x.key)
+	inorder(x.right, q)
+}
+
+func (bst BST) Floor(key Key) Key {
+	x := floor(bst.root, key)
+	if x == nil {
+		return nil
+	}
+	return x.key
+}
+
+func floor(x *node, key Key) *node {
+	if x == nil {
+		return nil
+	}
+
+	cmp := key.CompareTo(x.key)
+
+	if cmp == 0 {
+		return x
+	}
+
+	if cmp < 0 {
+		return floor(x.left, key)
+	}
+
+	t := floor(x.right, key)
+	if t != nil {
+		return t
+	} else {
+		return x
+	}
+}
+
+func (bst BST) Size() int {
+	return size(bst.root)
+}
+
+func size(x *node) int {
+	if x == nil {
+		return 0
+	}
+	return x.count
+}
+
+func (bst BST) Rank(key Key) int {
+	return rank(key, bst.root)
+}
+
+func rank(key Key, x *node) int {
+	if x == nil {
+		return 0
+	}
+	cmp := key.CompareTo(x.key)
+	if cmp < 0 {
+		return rank(key, x.left)
+	} else if cmp > 0 {
+		return 1 + size(x.left) + rank(key, x.right)
+	} else {
+		return size(x.left)
+	}
 }
