@@ -5,6 +5,46 @@ import (
 	"github.com/vistrcm/coursera-algorithms-pi-go/graph"
 )
 
+func printGraph(g graph.Interface) {
+	for v := 0; v < g.V(); v++ {
+		for _, w := range g.Adj(v) {
+			fmt.Printf("%d -> %d\n", v, w)
+		}
+	}
+}
+
+func ExampleCC_print() {
+	g := setupGraph()
+	printGraph(&g)
+
+	// Unordered output: 0 -> 5
+	// 4 -> 3
+	// 0 -> 1
+	// 9 -> 12
+	// 6 -> 4
+	// 5 -> 4
+	// 0 -> 2
+	// 11 -> 12
+	// 9 -> 10
+	// 0 -> 6
+	// 7 -> 8
+	// 9 -> 11
+	// 5 -> 3
+	// 5 -> 0
+	// 3 -> 4
+	// 1 -> 0
+	// 12 -> 9
+	// 4 -> 6
+	// 4 -> 5
+	// 2 -> 0
+	// 12 -> 11
+	// 10 -> 9
+	// 6 -> 0
+	// 8 -> 7
+	// 11 -> 9
+	// 3 -> 5
+
+}
 func ExampleCC() {
 	g := setupGraph()
 
