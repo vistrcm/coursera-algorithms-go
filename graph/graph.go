@@ -9,7 +9,7 @@ type Interface interface {
 
 type Graph struct {
 	v   int     // amount of vertices
-	e   int     // amount of egdes
+	e   int     // amount of edges
 	adj [][]int // adjacency list
 }
 
