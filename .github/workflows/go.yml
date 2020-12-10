@@ -21,12 +21,18 @@ jobs:
         export TZ="America/Chicago"
         export MONGO_TEST=mongodb://127.0.0.1:27017
         go test ./... -bench=.
-          
 
-    - name: install golangci-lint
-      run: |
-        curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $GITHUB_WORKSPACE v1.23.3
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v2
+      with:
+        # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
+        version: v1.29
 
-    - name: run linters
-      run: $GITHUB_WORKSPACE/golangci-lint run ./...
+        # Optional: working directory, useful for monorepos
+        # working-directory: somedir
 
+        # Optional: golangci-lint command line arguments.
+        # args: --issues-exit-code=0
+
+        # Optional: show only new issues if it's a pull request. The default value is `false`.
+        # only-new-issues: true
