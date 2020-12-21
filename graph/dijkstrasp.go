@@ -96,7 +96,6 @@ func (dst *DijkstraSP) pqDecreaseKey(w int, dist float64) {
 	dst.pq.update(item, dist)
 }
 
-
 func (dst *DijkstraSP) DistTo(v int) float64 {
 	return dst.distTo[v]
 }

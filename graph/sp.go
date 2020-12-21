@@ -22,13 +22,11 @@ func (sp *SP) PathTo(v int) []*DirectedEdge {
 	return path
 }
 
-func (sp *SP) relax(e DirectedEdge)  {
-	v := e.From(); w := e.To()
-	if sp.distTo[w] > sp.distTo[v] + e.weight {
+func (sp *SP) relax(e DirectedEdge) {
+	v := e.From()
+	w := e.To()
+	if sp.distTo[w] > sp.distTo[v]+e.weight {
 		sp.distTo[w] = sp.distTo[v] + e.weight
 		sp.edgeTo[w] = &e
 	}
 }
-
-
-
