@@ -2,6 +2,7 @@ package graph
 
 import "fmt"
 
+//nolint:deadcode
 func testSPClient(g EdgeWeightedDigraph, s int) {
 	sp := NewSP(g, s)
 	for v := 0; v < g.V(); v++ {
