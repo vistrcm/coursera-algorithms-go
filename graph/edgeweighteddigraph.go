@@ -57,7 +57,7 @@ func (g *EdgeWeightedDigraph) AddEdge(e DirectedEdge) {
 
 func (g *EdgeWeightedDigraph) Adj(v int) []DirectedEdge {
 	aux := make([]DirectedEdge, len(g.adj[v]))
-	copy(g.adj[v], aux)
+	copy(aux, g.adj[v])
 	return aux
 }
 
