@@ -3,29 +3,30 @@ package graph
 import "fmt"
 
 func ExampleNewDijkstraSP() {
+	s := 0
 	g := buildGraph()
-	dsp := NewDijkstraSP(g, 0)
+	sp := NewDijkstraSP(g, s)
 
-	for _, r := range dsp.PathTo(6){
-		fmt.Printf("%d -> %d.", r.From(), r.To())
+
+	for v := 0; v < g.V(); v++ {
+		if len(sp.PathTo(v)) == 0 {
+			continue
+		}
+		fmt.Printf("%d to %d (%.2f): ", s, v, sp.DistTo(v))
+		for _, e := range sp.PathTo(v) {
+			fmt.Print(e, ".")
+		}
+		fmt.Println()
 	}
-	fmt.Println()
-
-	for _, r := range dsp.PathTo(3){
-		fmt.Printf("%d -> %d.", r.From(), r.To())
-	}
-	fmt.Println()
-
-	for _, r := range dsp.PathTo(7){
-		fmt.Printf("%d -> %d.", r.From(), r.To())
-	}
-
-	fmt.Println()
 
 	//Output:
-	// 0 -> 4.4 -> 5.5 -> 2.2 -> 6.
-	// 0 -> 4.4 -> 5.5 -> 2.2 -> 3.
-	// 0 -> 7.
+	// 0 to 1 (5.00): 0->1(5.00).
+	// 0 to 2 (14.00): 0->4(9.00).4->5(4.00).5->2(1.00).
+	// 0 to 3 (17.00): 0->4(9.00).4->5(4.00).5->2(1.00).2->3(3.00).
+	// 0 to 4 (9.00): 0->4(9.00).
+	// 0 to 5 (13.00): 0->4(9.00).4->5(4.00).
+	// 0 to 6 (25.00): 0->4(9.00).4->5(4.00).5->2(1.00).2->6(11.00).
+	// 0 to 7 (8.00): 0->7(8.00).
 }
 
 func buildGraph() EdgeWeightedDigraph {
