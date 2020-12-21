@@ -39,7 +39,7 @@ type EdgeWeightedDigraph struct {
 
 func NewEdgeWeightedDigraph(v int) EdgeWeightedDigraph {
 	var adj = make([][]DirectedEdge, v)
-	for i, _ := range adj {
+	for i := range adj {
 		adj[i] = make([]DirectedEdge, 0)
 	}
 
