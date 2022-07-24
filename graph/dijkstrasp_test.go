@@ -7,7 +7,6 @@ func ExampleNewDijkstraSP() {
 	g := buildGraph()
 	sp := NewDijkstraSP(g, s)
 
-
 	for v := 0; v < g.V(); v++ {
 		if len(sp.PathTo(v)) == 0 {
 			continue
