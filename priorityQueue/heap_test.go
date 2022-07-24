@@ -2,7 +2,7 @@ package priorityQueue_test
 
 import (
 	"fmt"
-	"github.com/vistrcm/coursera-algorithms-pi-go/priorityQueue"
+	"github.com/vistrcm/coursera-algorithms-go/priorityQueue"
 )
 
 func ExampleUnorderedMaxPQ() {

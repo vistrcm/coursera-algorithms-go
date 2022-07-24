@@ -1,6 +1,6 @@
 package rbbst
 
-import "github.com/vistrcm/coursera-algorithms-pi-go/st"
+import "github.com/vistrcm/coursera-algorithms-go/st"
 
 //Left-leaning Red-Black BST
 

@@ -1,3 +1,3 @@
-module github.com/vistrcm/coursera-algorithms-pi-go
+module github.com/vistrcm/coursera-algorithms-go
 
 go 1.13

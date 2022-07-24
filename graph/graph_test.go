@@ -2,7 +2,7 @@ package graph_test
 
 import (
 	"fmt"
-	"github.com/vistrcm/coursera-algorithms-pi-go/graph"
+	"github.com/vistrcm/coursera-algorithms-go/graph"
 )
 
 func printGraph(g graph.Interface) {

@@ -2,7 +2,7 @@ package random_test
 
 import (
 	"fmt"
-	"github.com/vistrcm/coursera-algorithms-pi-go/random"
+	"github.com/vistrcm/coursera-algorithms-go/random"
 	"math/rand"
 )
 

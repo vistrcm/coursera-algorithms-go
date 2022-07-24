@@ -2,7 +2,7 @@ package queue_test
 
 import (
 	"fmt"
-	"github.com/vistrcm/coursera-algorithms-pi-go/queue"
+	"github.com/vistrcm/coursera-algorithms-go/queue"
 )
 
 func ExampleOfStringsLL() {

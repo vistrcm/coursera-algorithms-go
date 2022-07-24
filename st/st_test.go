@@ -2,8 +2,8 @@ package st_test
 
 import (
 	"fmt"
-	"github.com/vistrcm/coursera-algorithms-pi-go/st"
-	"github.com/vistrcm/coursera-algorithms-pi-go/st/rbbst"
+	"github.com/vistrcm/coursera-algorithms-go/st"
+	"github.com/vistrcm/coursera-algorithms-go/st/rbbst"
 )
 
 type comparableString string
