@@ -41,7 +41,7 @@ func (q *OfStringsLL) Enqueue(item string) {
 	}
 }
 
-//Dequeue removes and returns item least recently aded
+//Dequeue removes and returns item least recently added
 func (q *OfStringsLL) Dequeue() string {
 	item := q.first.item
 	q.first = q.first.next
