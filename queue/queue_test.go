@@ -13,10 +13,22 @@ func ExampleOfStringsLL() {
 	q.Enqueue("third")
 	q.Enqueue("one more")
 
+	fmt.Println(q.Length())
+
 	fmt.Println(q.Dequeue())
 	fmt.Println(q.Dequeue())
 	fmt.Println(q.Dequeue())
-	// Output: first
+
+	fmt.Println(q.Length())
+
+	fmt.Println(q.Dequeue())
+	fmt.Println(q.Length())
+
+	// Output: 4
+	// first
 	// second
 	// third
+	// 1
+	// one more
+	// 0
 }

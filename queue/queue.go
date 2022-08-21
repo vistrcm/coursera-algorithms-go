@@ -1,4 +1,4 @@
-//queue implementation
+// queue implementation
 package queue
 
 type OfStrings interface {
@@ -8,6 +8,8 @@ type OfStrings interface {
 	Dequeue() string
 	//IsEmpty check if the queue is empty
 	IsEmpty() bool
+	//Length returns the number of items in the queue
+	Length() int
 }
 
 type node struct {
@@ -15,19 +17,21 @@ type node struct {
 	next *node
 }
 
-//OfStringsLL linked list implementation of queue
+// OfStringsLL linked list implementation of queue
 type OfStringsLL struct {
 	first *node
 	last  *node
+	len   int
 }
 
-//NewOfStringsLL create new instance of OfStringsLL
+// NewOfStringsLL create new instance of OfStringsLL
 func NewOfStringsLL() *OfStringsLL {
 	return &OfStringsLL{}
 }
 
-//Enqueue inserts an item into the queue
+// Enqueue inserts an item into the queue
 func (q *OfStringsLL) Enqueue(item string) {
+	q.len++
 	oldLast := q.last
 	//new node for the end of the list
 	q.last = &node{
@@ -41,8 +45,9 @@ func (q *OfStringsLL) Enqueue(item string) {
 	}
 }
 
-//Dequeue removes and returns item least recently added
+// Dequeue removes and returns item least recently added
 func (q *OfStringsLL) Dequeue() string {
+	q.len--
 	item := q.first.item
 	q.first = q.first.next
 	if q.IsEmpty() {
@@ -51,7 +56,12 @@ func (q *OfStringsLL) Dequeue() string {
 	return item
 }
 
-//IsEmpty check if the queue is empty
+// IsEmpty check if the queue is empty
 func (q *OfStringsLL) IsEmpty() bool {
 	return q.first == nil
+}
+
+// Length returns the number of items in the queue
+func (q *OfStringsLL) Length() int {
+	return q.len
 }
